@@ -1,9 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="refresh" content="0; url=obsidian://new">
+    <meta charset="utf-8">
+    <title>Obsidian Redirect</title>
+    <script>
+      window.onload = function () {
+        // Get ?target=... from query string
+        const params = new URLSearchParams(window.location.search);
+        const target = params.get("target");
+
+        if (target) {
+          // Redirect immediately
+          window.location.href = target;
+        } else {
+          document.body.innerHTML = "<p>No target provided. Example: ?target=obsidian://new</p>";
+        }
+      };
+    </script>
   </head>
   <body>
-    <p>If you are not redirected automatically, <a href="obsidian://new">open in Obsidian</a>.</p>
+    <p>Redirecting...</p>
   </body>
 </html>
