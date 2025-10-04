@@ -1,24 +1,29 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Obsidian Redirect</title>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obsidian Note Redirector</title>
+</head>
+<body>
+    <p>Redirecting to Obsidian...</p>
     <script>
-      window.onload = function () {
-        // Get ?target=... from query string
-        const params = new URLSearchParams(window.location.search);
-        const target = params.get("target");
-
-        if (target) {
-          // Redirect immediately
-          window.location.href = target;
-        } else {
-          document.body.innerHTML = "<p>No target provided. Example: ?target=obsidian://new</p>";
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            const vault = params.get('vault');
+            const file = params.get('file');
+            
+            if (vault && file) {
+                // Construct the Obsidian URI (no additional encoding needed here as params are already encoded in the incoming URL)
+                const uri = `obsidian://open?vault=${vault}&file=${file}`;
+                window.location.href = uri;
+            } else {
+                document.body.innerHTML = '<p>Invalid or missing parameters. Please ensure the URL includes ?vault=VAULT_NAME&file=FILE_PATH.</p>';
+            }
         }
-      };
+        
+        // Call the function on page load
+        getQueryParams();
     </script>
-  </head>
-  <body>
-    <p>Redirecting...</p>
-  </body>
+</body>
 </html>
